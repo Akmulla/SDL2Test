@@ -11,13 +11,21 @@ int main(int argc, char* args[])
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
-		printf("Could not initialize window");
+		printf("Could not initialize SDL\n");
 		return -1;
 	}
 
-	printf("Window initialized");
+	printf("SDL initialized\n");
 
 	gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+	if (gWindow == NULL)
+	{
+		printf("Could not initialize window\n");
+		return -1;
+	}
+
+	printf("Window initialized\n");
 
 	SDL_Event e;
 	bool quit = false;
