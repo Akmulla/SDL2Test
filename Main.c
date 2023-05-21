@@ -1,11 +1,27 @@
 #include <stdio.h>
 #include <SDL.h>
 #include <stdbool.h>
+//#include <SDL_image.h>
 
 SDL_Window* gWindow = NULL;
 SDL_Surface* gScreenSurface = NULL;
+SDL_Surface* gHelloWorld = NULL;
+
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+
+
+bool LoadImage()
+{
+	gHelloWorld = SDL_LoadBMP("Images/Idle.bmp");
+	if (gHelloWorld == NULL)
+	{
+		printf("Unable to load image");
+		return false;
+	}
+
+	return true;
+}
 
 int main(int argc, char* args[])
 {
@@ -27,6 +43,16 @@ int main(int argc, char* args[])
 
 	printf("Window initialized\n");
 
+	gScreenSurface = SDL_GetWindowSurface(gWindow);
+
+	if (!LoadImage())
+	{
+		return -1;
+	}
+
+	SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+	SDL_UpdateWindowSurface(gWindow);
+	//Main loop
 	SDL_Event e;
 	bool quit = false;
 
@@ -41,3 +67,4 @@ int main(int argc, char* args[])
 
 	return 0;
 }
+
