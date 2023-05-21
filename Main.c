@@ -10,10 +10,16 @@ SDL_Surface* gHelloWorld = NULL;
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-
-bool LoadImage()
+SDL_Surface* LoadSurface(const char* path)
 {
-	gHelloWorld = SDL_LoadBMP("Images/Idle.bmp");
+	SDL_Surface* optimizedSurface = NULL;
+
+	return optimizedSurface;
+}
+
+bool LoadImage(const char* path)
+{
+	gHelloWorld = SDL_LoadBMP(path);
 	if (gHelloWorld == NULL)
 	{
 		printf("Unable to load image");
@@ -45,13 +51,14 @@ int main(int argc, char* args[])
 
 	gScreenSurface = SDL_GetWindowSurface(gWindow);
 
-	if (!LoadImage())
+	if (!LoadImage("Images/Idle.bmp"))
 	{
 		return -1;
 	}
 
 	SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
 	SDL_UpdateWindowSurface(gWindow);
+
 	//Main loop
 	SDL_Event e;
 	bool quit = false;
@@ -64,6 +71,14 @@ int main(int argc, char* args[])
 				quit = true;
 		}
 	}
+
+	SDL_FreeSurface(gHelloWorld);
+	gHelloWorld = NULL;
+
+	SDL_DestroyWindow(gWindow);
+	gWindow = NULL;
+
+	SDL_Quit();
 
 	return 0;
 }
