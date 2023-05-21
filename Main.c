@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <SDL.h>
 #include <stdbool.h>
-//#include <SDL_image.h>
+#include <SDL_image.h>
 
 SDL_Window* gWindow = NULL;
 SDL_Surface* gScreenSurface = NULL;
