@@ -10,6 +10,8 @@ SDL_Surface* gHelloWorld = NULL;
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
+
+
 SDL_Surface* LoadSurface(const char* path)
 {
 	SDL_Surface* optimizedSurface = NULL;
@@ -51,6 +53,12 @@ int main(int argc, char* args[])
 
 	printf("SDL initialized\n");
 
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags))
+	{
+		return -1;
+	}
+
 	gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
 	if (gWindow == NULL)
@@ -77,6 +85,9 @@ int main(int argc, char* args[])
 	stretchRect.w = 100;
 	stretchRect.h = 100;
 	SDL_BlitScaled(optimizedSurface, NULL, gScreenSurface, &stretchRect);
+
+
+
 
 	SDL_UpdateWindowSurface(gWindow);
 
