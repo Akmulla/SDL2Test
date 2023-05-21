@@ -14,6 +14,18 @@ SDL_Surface* LoadSurface(const char* path)
 {
 	SDL_Surface* optimizedSurface = NULL;
 
+	SDL_Surface* loadedSurface = SDL_LoadBMP(path);
+
+	if (loadedSurface == NULL)
+	{
+		printf("Unable to load image");
+	}
+	else
+	{
+		optimizedSurface = SDL_ConvertSurface(loadedSurface, gScreenSurface->format, 0);
+		SDL_FreeSurface(loadedSurface);
+	}
+
 	return optimizedSurface;
 }
 
@@ -57,6 +69,15 @@ int main(int argc, char* args[])
 	}
 
 	SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+
+	SDL_Surface* optimizedSurface = LoadSurface("Images/Idle.bmp");
+	SDL_Rect stretchRect;
+	stretchRect.x = 100;
+	stretchRect.y = 100;
+	stretchRect.w = 100;
+	stretchRect.h = 100;
+	SDL_BlitScaled(optimizedSurface, NULL, gScreenSurface, &stretchRect);
+
 	SDL_UpdateWindowSurface(gWindow);
 
 	//Main loop
